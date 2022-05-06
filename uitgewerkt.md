@@ -25,11 +25,12 @@ De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus
 
 De deur is op slot maar als je hem probeert te openen zie je opeens lichtjes knipperen, blijkbaar heb je een code nodig om de deur te openen.
 
-* 4x drukknoppen:
+* 5x drukknoppen:
   * 1x groen
   * 1x rood
   * 1x blauw
   * 1x geel
+  * 1x startknop
 * 4x LEDS:  
   * 1x groen
   * 1x rood
@@ -37,6 +38,8 @@ De deur is op slot maar als je hem probeert te openen zie je opeens lichtjes kni
   * 1x geel
 * 1x servo voor deur
 * 1x laser voor endgame
+* 4x 1Kohm weerstanden
+* 5x 10Kohm weerstanden
 
 ### Kamer 2
 
