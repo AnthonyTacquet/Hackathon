@@ -7,7 +7,7 @@ De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus
 ## Componenten
 
 ### Algemeen
-* 1x LEDStrip per kamer: 
+* 1x LEDStrip per kamer: ----------------------Mathias: ik heb nog 5-10meter liggen
   * Belicht kamer die actief is
   * **Kamer niet actief**: uit
   * **Kamer actief**: blauw
@@ -16,7 +16,7 @@ De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus
 * 8-10x minispiegels
 
 ### Controlekamer
-* 1x speaker
+* 1x speaker ---------------------Mathias: Wordt geregeld
 * 1x MP3 controller board
 * 1x segment display van 4 nummers
 * 1x startknop
@@ -41,7 +41,7 @@ De deur is op slot maar als je hem probeert te openen zie je opeens lichtjes kni
 * 4x 1Kohm weerstanden
 * 5x 10Kohm weerstanden
 
-### Kamer 2
+### Kamer 2 ------------------Mathias: Heb alles voor Kamer 2
 
 Het licht in de kamer is kapot en flikkert, misschien heeft dit iets te maken met het slot van de deur.
 
@@ -59,7 +59,7 @@ De spoken zijn verslaafd aan oude arcade games, versla hun score in snake en ope
 * 1x afstandsbediening
 * 1x IR receiver
 * 1x single digit segment display
-* 1x servo voor deur
+* 1x servo voor deur ---------------------------Mathias: Heb nog een servo liggen
 
 ### Kamer 4
 
