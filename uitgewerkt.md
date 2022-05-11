@@ -7,12 +7,12 @@ De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus
 ## afmetingen kamer
 ### hoogte:
  18,8 cm: <br>
-  12 cm kamer
-  0,9 cm tussen plaat
-  5 cm bodem
+  12 cm kamer;
+  0,9 cm tussen plaat;
+  5 cm bodem;
   0,9 cm bodem plaat
   
-kamer 1:
+### kamer 1:
  400cm * 200cm
 
 ## Componenten
