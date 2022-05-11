@@ -12,7 +12,7 @@ De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus
   5 cm bodem;
   0,9 cm bodem plaat
   
-### kamer 1:
+### kamer 2:
  400cm * 200cm
 
 ## Componenten
