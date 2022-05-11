@@ -5,8 +5,8 @@ Je moet binnen een bepaalde tijd ontsnappen of je ziel is eeuwig verloren in de 
 De enige uitweg is via de laatste kamer in het kasteel, je hebt geen andere keus om langs daar te ontsnappen.
 
 ## afmetingen kamer
-hoogte:
- 18,8 cm:
+hoogte: <br>
+ 18,8 cm: <br>
   12 cm kamer
   0,9 cm tussen plaat
   5 cm bodem
