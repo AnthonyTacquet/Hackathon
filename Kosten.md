@@ -6,5 +6,5 @@ Kosten:
 - Componenten:
   - Kostprijs: 13,77 euro
 
--Voorlopig totaal: 17,77 euro
--Voorlopige deeling: 8,885 euro
+- Voorlopig totaal: 17,77 euro
+  - Voorlopige deeling: 8,885 euro
