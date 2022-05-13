@@ -7,4 +7,4 @@ Kosten:
   - Kostprijs: 13,77 euro
 
 - Voorlopig totaal: 17,77 euro
-  - Voorlopige deeling: 8,885 euro
+  - Voorlopige deeling: 4,4425 euro
