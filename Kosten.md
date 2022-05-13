@@ -2,4 +2,4 @@ Kosten:
 - Houten plaat:
   - Hoeveelheid: 
   - Afmetingen: 
-  - Kostprijs: 
+  - Kostprijs: 4 euro
