@@ -4,7 +4,8 @@ Kosten:
   - Afmetingen: 
   - Kostprijs: 4 euro
 - Componenten:
-  - Kostprijs: 13,77 euro
+  - Gotron: 13,77 euro
+  - Online bestelling: 17,02 euro
 
-- Voorlopig totaal: 17,77 euro
-  - Voorlopige deeling: 4,442 euro
+- Voorlopig totaal: 34,79 euro
+  - Voorlopige deeling: 8,698 euro
