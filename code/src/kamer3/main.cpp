@@ -3,13 +3,11 @@
 /**
  * Wanneer de Arduino gestart wordt.
  */
-void setup()
-{
+void setup() {
 }
 
 /**
  * Loop die elke milliseconde wordt aangeroepen.
  */
-void loop()
-{
+void loop() {
 }
