@@ -19,6 +19,7 @@ void LedStrip::setup() {
   pinMode(this->redPin, OUTPUT);
   pinMode(this->greenPin, OUTPUT);
   pinMode(this->bluePin, OUTPUT);
+  this->setColor(COLOR_OFF);
 }
 
 /**
