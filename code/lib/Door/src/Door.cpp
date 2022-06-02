@@ -66,9 +66,7 @@ void Door::loop() {
     if (!isOpen) {
       this->angle--;
     }
-
-    Serial.println(this->angle);
-
+    
     this->servo.write(this->angle);
   }
 }
