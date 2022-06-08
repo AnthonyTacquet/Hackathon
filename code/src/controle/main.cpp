@@ -18,9 +18,9 @@
 
 // Seriële connecties naar alle kamers
 RoomConnection room1("kamer1", Serial);
-RoomConnection room2("kamer2", Serial);
-RoomConnection room3("kamer3", Serial);
-RoomConnection room4("kamer4", Serial);
+RoomConnection room2("kamer2", Serial1);
+RoomConnection room3("kamer3", Serial2);
+RoomConnection room4("kamer4", Serial3);
 
 // Display
 TM1637 display(PIN_DISPLAY_CLK, PIN_DISPLAY_DIO);
@@ -65,8 +65,6 @@ void startGame() {
 
   // Start de eerste kamer
   room1.start();
-
-  player.play(1);
 }
 
 /**
@@ -121,15 +119,12 @@ void winGame() {
 void idleGame() {
   gameStatus = "idle";
   gameReset = 0;
-  Serial.write("i");
 }
 
 /**
  * Wanneer de gebruiker op de game button in de controlekamer drukt.
  */
 void onGameButtonClick() {
-  player.play(1);
-  
   // Als de game idle is, start de game.
   if (gameStatus == "idle") {
     startGame();
@@ -196,19 +191,13 @@ void setup()
   display.init();
   display.set(7);
 
-  // Setup buzzer
-  pinMode(PIN_BUZZER, OUTPUT);
-  tone(PIN_BUZZER, 1000);
-  delay(500);
-  noTone(PIN_BUZZER);
-
   // Setup de DFPlayer
   playerSerial.begin(9600);
   Serial.println();
   Serial.println(F("DFRobot DFPlayer Mini Demo"));
   Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
   
-  if (!player.begin(playerSerial)) { 
+  if (!player.begin(playerSerial)) {
     Serial.println(F("Unable to begin:"));
     Serial.println(F("1.Please recheck the connection!"));
     Serial.println(F("2.Please insert the SD card!"));
@@ -248,28 +237,30 @@ void setup()
   room4.onComplete([]() {
     if (gameStatus == "running" && gameRoom == 4) {
       gameRoom = 5;
+
+      // TODO: dit mag pas triggeren bij het raken van de laser.
       winGame();
     }
   });
 
   // Wanneer de kamers een geluid signaal geven.
-  /*room1.onSound([](int sound) {
-    player.play(sound);
+  room1.onSound([](int sound) {
+    player.playMp3Folder(sound);
   });
   room2.onSound([](int sound) {
-    player.play(sound);
+    player.playMp3Folder(sound);
   });
   room3.onSound([](int sound) {
-    player.play(sound);
+    player.playMp3Folder(sound);
   });
   room4.onSound([](int sound) {
-    player.play(sound);
-  });*/
+    player.playMp3Folder(sound);
+  });
 }
 
 /**
  * Loop die elke milliseconde wordt aangeroepen.
- */
+ */ 
 void loop()
 {
   // Voer de loop uit voor alle kamer controllers
@@ -283,8 +274,6 @@ void loop()
 
   // Wanneer de gamebutton ingedrukt wordt.
   if (gameButton.pressed()) {
-    // Test DFPlayer
-    player.play(1);
     onGameButtonClick();
   }
 
@@ -302,9 +291,9 @@ void loop()
     }
   }
 
-  // Als de game aan het resetten is, zet de game op idle na 10 seconden.
+  // Als de game aan het resetten is, zet de game op idle na 5 seconden.
   if (gameStatus == "resetting") {
-    if (millis() - gameReset > 10000) {
+    if (millis() - gameReset > 5000) {
       idleGame();
     }
   }
