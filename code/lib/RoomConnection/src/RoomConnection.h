@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 typedef void (*Function) ();
-typedef void (*FunctionInt) (int);
+typedef void (*FunctionInt) (int sound);
 
 class RoomConnection {
   public:
