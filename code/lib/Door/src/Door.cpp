@@ -60,13 +60,13 @@ void Door::loop() {
     // Deur openen.
     if (isOpen) {
       this->angle++;
+      this->servo.write(this->angle);
     }
 
     // Deur sluiten.
     if (!isOpen) {
       this->angle--;
+      this->servo.write(this->angle);
     }
-    
-    this->servo.write(this->angle);
   }
 }
