@@ -14,7 +14,7 @@
 #define PIN_PLAYER_TX 11
 #define PIN_BUZZER 2
 
-#define GAME_DURATION 180000UL
+#define GAME_DURATION 600000UL
 
 // Seriële connecties naar alle kamers
 RoomConnection room1("kamer1", Serial);
@@ -209,6 +209,9 @@ void setup()
   // Pull-up resistor voor de game button.
   pinMode(PIN_GAME_BUTTON, INPUT_PULLUP);
 
+  // Reset alle kamers initieel
+  resetGame();
+
   // Wanneer een kamer1 opgelost is.
   room1.onComplete([]() {
     if (gameStatus == "running" && gameRoom == 1) {
@@ -236,9 +239,6 @@ void setup()
   // Wanneer een kamer4 opgelost is.
   room4.onComplete([]() {
     if (gameStatus == "running" && gameRoom == 4) {
-      gameRoom = 5;
-
-      // TODO: dit mag pas triggeren bij het raken van de laser.
       winGame();
     }
   });
