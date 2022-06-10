@@ -23,12 +23,17 @@ void RoomConnection::setup() {
  * Roep deze functie op in de loop() functie van de Arduino.
  */
 void RoomConnection::loop() {
+  // Lees de connectie voor een bericht
   String message = this->read();
+
+  if (!message.equals("_")) {
+    Serial.println(message);
+  }
 
   if (message.equals(CMD_COMPLETE)) {
     this->onCompleteFunction();
-  }
-
+  } 
+  
   if (message.startsWith(CMD_SOUND)) {
     int sound = message.substring(strlen(CMD_SOUND)).toInt();
     this->onSoundFunction(sound);
@@ -71,6 +76,14 @@ void RoomConnection::onComplete(Function function) {
   this->onCompleteFunction = function;
 }
 
+
+/**
+ * Event handler wannneer het sound signaal wordt ontvangen.
+ * @param function Lambda function
+ */
+void RoomConnection::onSound(FunctionInt function) {
+  this->onSoundFunction = function;
+}
 
 /**
  * Schrijf een bericht naar de seriële verbinding.
