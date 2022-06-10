@@ -14,16 +14,16 @@
 #define SNAKE_START_POSITION 4, 0
 
 // LED strip
-LedStrip ledStrip(4, 3, 2);
+LedStrip ledStrip(5, 4, 6);
 
 // LED Dot Matrix
-LedControl ledMatrix(10, 12, 11, 1);
+LedControl ledMatrix(8, 10, 9, 1);
 
 // Door
-Door door(7);
+Door door(11);
 
 // IR Remote
-IRrecv irReceiver(5);
+IRrecv irReceiver(7);
 
 // Connectie met de controle kamer
 ControlRoomConnection controlRoom(Serial);
