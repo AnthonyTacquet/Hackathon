@@ -5,10 +5,12 @@
 
 // LED strip
 LedStrip ledStrip(2, 3, 4);
+// Door
+Door door(9);
 // Connectie met de controle kamer
 ControlRoomConnection controlRoom(Serial);
 // Spel is actief
-bool active = false;
+bool active = true;
 // Mijn Code
 #define select 3
 #define enter 4
@@ -32,6 +34,7 @@ FireTimer wrong;
 
 void setup()
 {
+  door.setup();
   ledStrip.setup();
   controlRoom.setup();
   Serial.println("Setup!");
@@ -39,6 +42,7 @@ void setup()
   controlRoom.onReset([]()
                       {
     ledStrip.setBlinkColor(COLOR_BLUE, 3000, 200, COLOR_OFF);
+    door.close();
     active = false; });
   // Wanneer een start signaal ontvangen wordt van de controle kamer.
   controlRoom.onStart([]()
@@ -65,9 +69,9 @@ void setup()
   pinMode(enter, INPUT);
   digitalWrite(enter, LOW);
   pinMode(0, INPUT);
+  pinMode(9, OUTPUT);
   randomSeed(analogRead(0));
   randomNr = random(3);
-  Serial.begin(115200);
   pinMode(1, INPUT);
   // lcd display
   lcd.init();
@@ -81,10 +85,13 @@ void setup()
 
 void loop()
 {
+  door.loop();
   ledStrip.loop();
   controlRoom.loop();
   if (active)
   {
+    door.close();
+    door.open();
     printe();
     if (randomNr == 0)
     {
