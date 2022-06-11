@@ -104,9 +104,9 @@ void right_sequence()
   {
     level++;
   }
-  // else  {
-  // controlRoom.complete();
-  // }
+   else  {
+    controlRoom.complete();
+   }
 }
 
 void get_sequence()
@@ -117,10 +117,10 @@ void get_sequence()
     flag = 0;
     while (flag == 0)
     {
-      if (digitalRead(ledblue) == LOW)
+      if (digitalRead(buttonblue) == LOW)
       {
-        digitalWrite(ledgreen, HIGH);
-        your_sequence[i] = ledgreen;
+        digitalWrite(ledblue, HIGH);
+        your_sequence[i] = ledblue;
         flag = 1;
         msTimer.fire();
         if (your_sequence[i] != sequence[i])
@@ -128,12 +128,12 @@ void get_sequence()
           wrong_sequence();
           return;
         }
-        digitalWrite(5, LOW);
+        digitalWrite(ledblue, LOW);
       }
-      if (digitalRead(A1) == LOW)
+      if (digitalRead(buttonyellow) == LOW)
       {
-        digitalWrite(4, HIGH);
-        your_sequence[i] = 4;
+        digitalWrite(ledyellow, HIGH);
+        your_sequence[i] = ledyellow;
         flag = 1;
         msTimer.update(200);
         if (your_sequence[i] != sequence[i])
@@ -141,12 +141,12 @@ void get_sequence()
           wrong_sequence();
           return;
         }
-        digitalWrite(4, LOW);
+        digitalWrite(ledyellow, LOW);
       }
-      if (digitalRead(A2) == LOW)
+      if (digitalRead(buttonred) == LOW)
       {
-        digitalWrite(3, HIGH);
-        your_sequence[i] = 3;
+        digitalWrite(ledred, HIGH);
+        your_sequence[i] = ledred;
         flag = 1;
         msTimer.update(200);
         if (your_sequence[i] != sequence[i])
@@ -154,12 +154,12 @@ void get_sequence()
           wrong_sequence();
           return;
         }
-        digitalWrite(3, LOW);
+        digitalWrite(ledred, LOW);
       }
-      if (digitalRead(A3) == LOW)
+      if (digitalRead(buttongreen) == LOW)
       {
-        digitalWrite(2, HIGH);
-        your_sequence[i] = 2;
+        digitalWrite(ledgreen, HIGH);
+        your_sequence[i] = ledgreen;
         flag = 1;
         msTimer.update(200);
         if (your_sequence[i] != sequence[i])
@@ -167,7 +167,7 @@ void get_sequence()
           wrong_sequence();
           return;
         }
-        digitalWrite(2, LOW);
+        digitalWrite(ledgreen, LOW);
       }
     }
   }
