@@ -10,11 +10,16 @@ int switchState1 = 0;
 int switchState2 = 0;
 int switchState3 = 0;
 int switchState4 = 0;
-int switchState5 = 0;
+
+int analogValue = 0;
+
 int laser = 13;
 bool again = false;
-bool active = true; // false
+bool active = false; // false
 int time = 0;
+int time2 = 0;
+
+//Order: Teresa G. Gant; Jean W. Harmon; Phillip R. Giles; Eric A. Fenster
 
 ControlRoomConnection controlRoom(Serial);
 LedStrip ledStrip(9, 10, 11);
@@ -22,10 +27,20 @@ LedStrip ledStrip(9, 10, 11);
 // 10 = RED
 // 11 = BLUE
 
+void readInputs(){
+  // Reads te state of each switch repeatedly
+  switchState1 = !digitalRead(2); 
+  switchState2 = !digitalRead(3);
+  switchState3 = !digitalRead(4);
+  switchState4 = !digitalRead(5);
+  // DON'T FORGET TO RANDOMIZE
+
+  analogValue = analogRead(A0);
+}
+
 void setup() {
   controlRoom.setup();
   ledStrip.setup();
-  //Serial.begin(9600);
 
   pinMode(2, INPUT_PULLUP); //Switch 1
   pinMode(3, INPUT_PULLUP); //Switch 2
@@ -33,7 +48,6 @@ void setup() {
   pinMode(5, INPUT_PULLUP); //Switch 4
   pinMode(laser, OUTPUT);
   digitalWrite(laser, LOW);
-  // pinMode(6, INPUT_PULLUP); Switch 5 - Optional
 
   // Wanneer een reset signaal ontvangen wordt van de controle kamer.
   controlRoom.onReset([]() {
@@ -63,39 +77,40 @@ void setup() {
 void loop(){
   controlRoom.loop();
   ledStrip.loop();
+  
+  readInputs();
 
-  // Reads te state of each switch repeatedly
-  switchState1 = !digitalRead(2); 
-  switchState2 = !digitalRead(3);
-  switchState3 = !digitalRead(4);
-  switchState4 = !digitalRead(5);
-  //switchState5 = digitalRead(6);
-  //String printt = String( switchState1 + " - " + switchState2 + " - " + switchState3 + " - " + switchState4);
   //Serial.println(switchState1);
-  int analogValue = analogRead(A0);
-  //Serial.println(analogValue);
+
+  Serial.println(analogValue);
 
   if (!active)
   {
     digitalWrite(laser, LOW);
+    time2 = 0;
+    time = 0;
   }
   
-
   if(!again && active){
-   
-    if(switchState1 == HIGH && switchState2 == HIGH && switchState3 == HIGH && switchState4 == HIGH ){// && switchState5 == HIGH
-      //ledStrip.setBlinkColor(COLOR_GREEN, 5000, 200, COLOR_GREEN);
+    if(switchState1 == HIGH && switchState2 == HIGH && switchState3 == HIGH && switchState4 == HIGH ){
       digitalWrite(laser, HIGH);
-      ledStrip.setColor(COLOR_GREEN);
+      ledStrip.setColor(COLOR_GREEN); // set colour green
+      if(time2 == 0){
+        controlRoom.playSound(9); // light saber sound
+        time2++;
+      }
+
       if (analogValue > 300)
       {
+        controlRoom.playSound(10); // applause sound
+        Serial.println("OK");
         controlRoom.complete();
-      }
-      
+      }    
     } else {
       digitalWrite(laser, LOW);
-      ledStrip.setColor(COLOR_BLUE);
+      ledStrip.setColor(COLOR_BLUE); // set colour blue
     }
+   
     if(switchState2 == HIGH && switchState1 == LOW){
       again = true;
     }
@@ -105,22 +120,19 @@ void loop(){
     if(switchState4 == HIGH && (switchState3 == LOW || switchState2 == LOW || switchState1 == LOW)){
       again = true;
     }
-    /*if(switchState5 == HIGH && (switchState4 == LOW || switchState3 == LOW || switchState2 == LOW || switchState1 == LOW)){
-      again = true;
-    }*/
-  } else if (active){
-    // Mistake was made, game will restart when all pins are low
+
+  } else if (again && active){
     if (time == 0)
     {
-      ledStrip.setBlinkColor(COLOR_RED, 2000, 200, COLOR_RED);
+      controlRoom.playSound(8); // play sound "try that again"
       time ++;
     }
-    
-    if(switchState1 == LOW && switchState2 == LOW && switchState3 == LOW && switchState4 == LOW && switchState5 == LOW){
-      //ledStrip.setBlinkColor(COLOR_RED, 5000, 200, COLOR_RED);
-      //ledStrip.setColor(COLOR_BLUE);
+    if(switchState1 == LOW && switchState2 == LOW && switchState3 == LOW && switchState4 == LOW){
       again = false; 
       time = 0;
+    } else {
+      //ledStrip.setColor(COLOR_RED); // set colour red
+      ledStrip.setColor(COLOR_RED);
     }
   }
 }
