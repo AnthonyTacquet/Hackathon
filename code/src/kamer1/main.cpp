@@ -69,7 +69,7 @@ void setup()
   pinMode(buttonyellow, INPUT_PULLUP);
   pinMode(buttonred, INPUT_PULLUP);
   pinMode(buttongreen, INPUT_PULLUP);
-  // pinMode(buttonstart, INPUT_PULLUP);
+  
   pinMode(ledblue, OUTPUT);
   pinMode(ledyellow, OUTPUT);
   pinMode(ledred, OUTPUT);
@@ -97,7 +97,7 @@ void show_sequence()
 void wrong_sequence()
 {
   level = 1;
-  ledStrip.setBlinkColor(COLOR_GREEN, 5000, 200, COLOR_GREEN);
+  ledStrip.setBlinkColor(COLOR_RED, 5000, 200, COLOR_RED);
 }
 void right_sequence()
 {
@@ -169,7 +169,7 @@ void get_sequence()
         digitalWrite(ledgreen, HIGH);
         your_sequence[i] = ledgreen;
         flag = 1;
-        msTimer.update(200);
+        msTimer.fire();
         if (your_sequence[i] != sequence[i])
         {
           wrong_sequence();
