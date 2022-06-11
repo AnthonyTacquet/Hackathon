@@ -3,13 +3,14 @@
 #include <Door.h>
 #include <LedStrip.h>
 #include <ControlRoomConnection.h>
+#include <Wire.h>
 
 const int MaxLevel = 8;
 int sequence[MaxLevel];
 int your_sequence[MaxLevel];
 int level = 1;
-int velocity = 1000;
-bool active = false;
+
+bool active = false; // default is false
 FireTimer msTimer;
 
 // led innput
@@ -19,20 +20,22 @@ int ledred = 5;
 int ledgreen = 3;
 // button input
 int buttonblue = 10;
-int buttonyellow = 11;
-int buttonred = 12;
-int buttongreen = 13;
+int buttonyellow = 12;
+int buttonred = 13;
+int buttongreen = 11;
 // int buttonstart = 8;
 
-LedStrip ledStrip(9, 8, 7); // ledStrip
+LedStrip ledStrip(8, 9, 7); // ledStrip
 Door door(6);               // door
 
 ControlRoomConnection controlRoom(Serial); // Connectie met de controle kamer
 
 void setup()
 {
+  // Serial.begin(115200);
 
   door.setup();
+  // door.open();
   ledStrip.setup();
   controlRoom.setup();
 
@@ -94,8 +97,7 @@ void show_sequence()
 void wrong_sequence()
 {
   level = 1;
-  ledStrip.setBlinkColor(COLOR_RED, 5000, 200, COLOR_RED);
-
+  ledStrip.setBlinkColor(COLOR_GREEN, 5000, 200, COLOR_GREEN);
 }
 void right_sequence()
 {
@@ -104,9 +106,12 @@ void right_sequence()
   {
     level++;
   }
-   else  {
+  else
+  {
+    door.open();
     controlRoom.complete();
-   }
+    ledStrip.setBlinkColor(COLOR_GREEN, 2000, 200, COLOR_GREEN);
+  }
 }
 
 void get_sequence()
@@ -135,7 +140,8 @@ void get_sequence()
         digitalWrite(ledyellow, HIGH);
         your_sequence[i] = ledyellow;
         flag = 1;
-        msTimer.update(200);
+        msTimer.fire();
+        // msTimer.update(200);
         if (your_sequence[i] != sequence[i])
         {
           wrong_sequence();
@@ -146,9 +152,11 @@ void get_sequence()
       if (digitalRead(buttonred) == LOW)
       {
         digitalWrite(ledred, HIGH);
+        Serial.println("roodin");
         your_sequence[i] = ledred;
         flag = 1;
-        msTimer.update(200);
+        msTimer.fire();
+        // msTimer.update(200);
         if (your_sequence[i] != sequence[i])
         {
           wrong_sequence();
@@ -174,7 +182,6 @@ void get_sequence()
   right_sequence();
 }
 
-
 void generate_sequence()
 {
   randomSeed(millis()); // maken het random
@@ -183,22 +190,30 @@ void generate_sequence()
     sequence[i] = random(2, 6);
   }
   Serial.println(sequence[MaxLevel]);
+  Serial.println("test");
+
 }
 
 void loop()
 {
+
+  door.loop();
+  ledStrip.loop();
+  controlRoom.loop();
+
   if (msTimer.fire())
   {
+    
     if (active)
     {
-      generate_sequence();
-      if (digitalRead(buttonblue || buttongreen || buttonred || buttonyellow) == LOW || level != 1)
+      if (level == 1)
+        generate_sequence();
+      if (digitalRead(buttonred) == LOW || level != 1)
       {
+        Serial.println("buttonlow");
         show_sequence();
         get_sequence(); // wacht op antwoord
       }
     }
   }
 }
-
-
