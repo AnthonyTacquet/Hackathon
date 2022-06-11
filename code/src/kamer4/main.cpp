@@ -10,7 +10,7 @@ int switchState1 = 0;
 int switchState2 = 0;
 int switchState3 = 0;
 int switchState4 = 0;
-int switchState5 = 0;
+
 int analogValue = 0;
 
 int laser = 13;
@@ -33,6 +33,7 @@ void readInputs(){
   switchState2 = !digitalRead(3);
   switchState3 = !digitalRead(4);
   switchState4 = !digitalRead(5);
+  // DON'T FORGET TO RANDOMIZE
 
   analogValue = analogRead(A0);
 }
@@ -126,7 +127,7 @@ void loop(){
       controlRoom.playSound(8); // play sound "try that again"
       time ++;
     }
-    if(switchState1 == LOW && switchState2 == LOW && switchState3 == LOW && switchState4 == LOW && switchState5 == LOW){
+    if(switchState1 == LOW && switchState2 == LOW && switchState3 == LOW && switchState4 == LOW){
       again = false; 
       time = 0;
     } else {
@@ -135,4 +136,3 @@ void loop(){
     }
   }
 }
-
