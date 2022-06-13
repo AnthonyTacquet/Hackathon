@@ -1,10 +1,8 @@
 #include <Arduino.h>
 #include <ControlRoomConnection.h>
 #include <LedStrip.h>
-#include <Button.h>
-#include <IRremote.h>
-#include <FireTimer.h>
 #include <LedControl.h>
+#include <Wire.h>
 
 int switchState1 = 0;
 int switchState2 = 0;
@@ -29,10 +27,10 @@ LedStrip ledStrip(9, 10, 11);
 
 void readInputs(){
   // Reads te state of each switch repeatedly
-  switchState1 = !digitalRead(2); 
-  switchState2 = !digitalRead(3);
-  switchState3 = !digitalRead(4);
-  switchState4 = !digitalRead(5);
+  switchState1 = !digitalRead(3); //2
+  switchState2 = !digitalRead(5); //3
+  switchState3 = !digitalRead(4); //4
+  switchState4 = !digitalRead(2); //5
   // DON'T FORGET TO RANDOMIZE
 
   analogValue = analogRead(A0);
@@ -51,6 +49,7 @@ void setup() {
 
   // Wanneer een reset signaal ontvangen wordt van de controle kamer.
   controlRoom.onReset([]() {
+    //Serial.println("RESET");
     ledStrip.setBlinkColor(COLOR_BLUE, 5000, 200, COLOR_OFF);
     active = false;
   });
@@ -72,6 +71,7 @@ void setup() {
     ledStrip.setBlinkColor(COLOR_GREEN, 5000, 200, COLOR_GREEN);
     active = false;
   });
+  controlRoom.playSound(1); // play sound "try that again"
 }
 
 void loop(){
@@ -82,7 +82,7 @@ void loop(){
 
   //Serial.println(switchState1);
 
-  Serial.println(analogValue);
+  //Serial.println(analogValue);
 
   if (!active)
   {
@@ -103,7 +103,7 @@ void loop(){
       if (analogValue > 300)
       {
         controlRoom.playSound(10); // applause sound
-        Serial.println("OK");
+        //Serial.println("OK");
         controlRoom.complete();
       }    
     } else {
